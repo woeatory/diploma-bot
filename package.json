@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/woeatory/diploma-bot/issues"
   },
-  "homepage": "https://github.com/woeatory/diploma-bot#readme"
+  "homepage": "https://github.com/woeatory/diploma-bot#readme",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-metarhia": "^8.2.2",
+    "eslint-plugin-import": "^2.29.1"
+  }
 }
