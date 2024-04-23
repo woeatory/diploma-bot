@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Diploma project",
   "main": "index.js",
+  "type": "module",
+  "types": "types/global.d.ts",
   "scripts": {
+    "start": "node --env-file=.env application/main.js",
+    "start:dev": "node --env-file=.env --watch application/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +23,10 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-metarhia": "^8.2.2",
-    "eslint-plugin-import": "^2.29.1"
+    "eslint-plugin-import": "^2.29.1",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "grammy": "^1.22.4"
   }
 }
