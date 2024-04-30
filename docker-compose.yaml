@@ -1,0 +1,39 @@
+services:
+  movnyuk-server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+  postgres-db:
+    image: postgres:alpine
+    restart: always
+    user: postgres
+    secrets:
+      - db-password
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_DB=application
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./database/structure.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./database/data.sql:/docker-entrypoint-initdb.d/2.sql
+    ports:
+      - 127.0.0.1:5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: database/password.txt
