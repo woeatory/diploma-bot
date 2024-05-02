@@ -4,7 +4,6 @@ ARG NODE_VERSION=20.10.0
 
 FROM node:${NODE_VERSION}-alpine
 
-
 WORKDIR /usr/src/app
 
 RUN --mount=type=bind,source=package.json,target=package.json \
@@ -16,6 +15,4 @@ USER node
 
 COPY . .
 
-EXPOSE 8000
-
-CMD npm run start
+CMD npx knex migrate:latest --knexfile database/knexfile.cjs

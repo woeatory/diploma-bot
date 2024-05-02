@@ -30,5 +30,11 @@
 **/values.dev.yaml
 **/build
 **/dist
+**/data
+**/.editorconfig
+**/env.example
+**/*eslint**
+**/*prettier**
+README.Docker.md
 LICENSE
 README.md

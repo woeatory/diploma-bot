@@ -131,3 +131,6 @@ dist
 
 # Database password
 database/password.txt
+
+# Database data
+data/
