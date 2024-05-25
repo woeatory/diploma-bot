@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/woeatory/diploma-bot#readme",
   "devDependencies": {
+    "@stylistic/eslint-plugin-js": "^2.1.0",
     "eslint": "^8.57.0",
     "eslint-config-metarhia": "^8.2.2",
     "eslint-plugin-import": "^2.29.1",
