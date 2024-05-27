@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function(knex) {
-  await knex('Dictionaries').del();
+  await knex('Dictionaries').del().truncate();
   await knex('Dictionaries').insert([
     {
       name: 'my dictionary',

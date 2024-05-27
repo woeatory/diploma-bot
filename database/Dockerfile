@@ -15,4 +15,4 @@ USER node
 
 COPY . .
 
-CMD npx knex migrate:latest --knexfile database/knexfile.cjs
+CMD npm run migrate:latest && npx knex seed:run --knexfile database/knexfile.cjs
