@@ -9,8 +9,8 @@ export default class UserRepository {
   }
 
   async readUser(userId, fields = ['*']) {
-    const names = fields.join(', ');
     console.log({ readUser: userId });
+    const names = fields.join(', ');
     return await this.knex('Users')
       .select(names)
       .whereRaw('user_id = ?', userId);
