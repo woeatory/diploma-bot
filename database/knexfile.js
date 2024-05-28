@@ -5,7 +5,10 @@ import { getDbPassword } from '../utils/utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dbConfig = config({ path: path.join(__dirname, '../.env') }).parsed;
+const dbConfig = {
+  ...config({ path: path.join(__dirname, '../.env') }).parsed,
+  ...process.env,
+};
 
 export default {
   development: {
@@ -13,7 +16,7 @@ export default {
     connection: async () => {
       const password = await getDbPassword(dbConfig.DB_PASSWORD_FILE);
       return {
-        host: dbConfig['DB_HOST'],
+        host: dbConfig['POSTGRES_HOST'],
         port: '5432',
         user: dbConfig['POSTGRES_USER'],
         password,

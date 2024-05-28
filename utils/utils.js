@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import { readFile } from 'node:fs/promises';
 
+export const toBool = [() => true, () => false];
+
 export const getDbPassword = async (path) => {
   const exists = await fs.promises.access(path).then(...toBool);
   const passwordFilePath = exists ? path : 'password.txt';
@@ -10,4 +12,3 @@ export const getDbPassword = async (path) => {
   return password.trim();
 };
 
-export const toBool = [() => true, () => false];

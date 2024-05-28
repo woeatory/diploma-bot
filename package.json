@@ -10,7 +10,8 @@
     "start:dev": "node --env-file=.env --watch application/main.js",
     "test": "node --env-file=.env --test \"**/*.test.js\" \"**/*.spec.js\"",
     "test:windows": "node --env-file=.env --test",
-    "migrate:latest": "npx knex migrate:latest --knexfile database/knexfile.js"
+    "migrate:latest": "npx knex migrate:latest --knexfile database/knexfile.js",
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" \"**/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/woeatory/diploma-bot#readme",
   "devDependencies": {
+    "@stylistic/eslint-plugin": "^2.1.0",
     "@stylistic/eslint-plugin-js": "^2.1.0",
     "eslint": "^8.57.0",
     "eslint-config-metarhia": "^8.2.2",

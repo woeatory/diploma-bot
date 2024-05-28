@@ -8,7 +8,6 @@ export default class UserService {
   }
 
   async readUser(userId) {
-    console.log({ readUser: userId });
     const res = await this.userRepository.readUser(userId);
     return res;
   }

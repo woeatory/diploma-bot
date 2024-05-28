@@ -16,6 +16,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "camelcase": "warn"
+    "camelcase": "off"
   }
 }

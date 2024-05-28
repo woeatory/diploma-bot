@@ -3,16 +3,12 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-  knex.schema.hasTable('Users').then((exists) => {
-    if (!exists) {
-      return knex.schema.createTable('Users', (table) => {
-        table.bigInteger('user_id').primary().index();
-        table.timestamp('created_at').defaultTo(knex.fn.now());
-      });
-    }
+  return knex.schema.createTable('Users', (table) => {
+    table.bigInteger('user_id').primary().index();
+    table.timestamp('created_at').defaultTo(knex.fn.now());
   });
-};
+}
 
 export function down(knex) {
   return knex.schema.dropTableIfExists('Users');
-};
+}

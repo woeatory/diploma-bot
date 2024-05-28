@@ -9,6 +9,6 @@ export const startPolling = (bot) => {
   });
 };
 
-export const startWebhook = (bot) => {
-  throw new Error('not implemented');
-};
+// export const startWebhook = (bot) => {
+//   throw new Error('not implemented');
+// };
