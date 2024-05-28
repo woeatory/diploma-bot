@@ -5,7 +5,11 @@ export default class UserRepository {
 
   async createUser(userId) {
     console.log({ createUser: userId });
-    await this.knex('Users').insert({ user_id: userId }).onConflict().ignore();
+    return await this.knex('Users')
+      .insert({ user_id: userId })
+      .returning('*')
+      .onConflict()
+      .ignore();
   }
 
   async readUser(userId, fields = ['*']) {

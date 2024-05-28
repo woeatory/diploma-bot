@@ -8,8 +8,9 @@
   "scripts": {
     "start": "node --env-file=.env application/main.js",
     "start:dev": "node --env-file=.env --watch application/main.js",
-    "test": "node --test \"/**/*.test.js\" \"**/*.spec.js\"",
-    "migrate:latest": "npx knex migrate:latest --knexfile database/knexfile.cjs"
+    "test": "node --env-file=.env --test \"**/*.test.js\" \"**/*.spec.js\"",
+    "test:windows": "node --env-file=.env --test",
+    "migrate:latest": "npx knex migrate:latest --knexfile database/knexfile.js"
   },
   "repository": {
     "type": "git",
