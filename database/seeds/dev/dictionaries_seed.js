@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.seed = async function(knex) {
+export async function seed(knex) {
   await knex('Dictionaries').del().truncate();
   await knex('Dictionaries').insert([
     {
@@ -15,4 +15,4 @@ exports.seed = async function(knex) {
       },
     },
   ]);
-};
+}

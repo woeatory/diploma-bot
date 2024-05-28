@@ -1,4 +1,4 @@
-exports.up = function (knex) {
+export function up(knex) {
   knex.schema.hasTable('Dictionaries').then((exists) => {
     if (!exists) {
       return knex.schema.createTable('Dictionaries', (table) => {
@@ -12,6 +12,6 @@ exports.up = function (knex) {
   });
 };
 
-exports.down = function (knex) {
+export function down(knex) {
   return knex.schema.dropTable('Dictionaries');
 };
