@@ -4,11 +4,10 @@ export default class UserService {
   }
 
   async createUser(userId) {
-    await this.userRepository.createUser(userId);
+    return await this.userRepository.createUser(userId);
   }
 
   async readUser(userId) {
-    const res = await this.userRepository.readUser(userId);
-    return res;
+    return await this.userRepository.readUser(userId);
   }
 }
