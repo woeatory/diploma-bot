@@ -1,4 +1,3 @@
-import { toBool } from '../../utils/utils.js';
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
