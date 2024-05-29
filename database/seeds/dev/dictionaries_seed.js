@@ -6,8 +6,9 @@ export async function seed(knex) {
   await knex('Dictionaries').del().truncate();
   await knex('Dictionaries').insert([
     {
-      name: 'my dictionary',
+      lable: 'my dictionary',
       language: 'English',
+      owner_id: '6965493277',
       words: {
         nocturnal: 'active mainly during the night',
         prolific: 'producing a large amount of something',
