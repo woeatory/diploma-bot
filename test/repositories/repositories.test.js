@@ -143,5 +143,55 @@ describe('Repositories', { concurrency: false }, () => {
         });
       });
     });
+
+    describe('readDictionary', () => {
+      it('should return dictionary with given fields', async () => {
+        const dictionaries = [
+          {
+            lable: 'First dictionary',
+            authorId: '0',
+            language: 'English',
+            words: {
+              nocturnal: 'active mainly during the night',
+              prolific: 'producing a large amount of something',
+              relapse:
+                'the return of an illness after a period of improvement ',
+            },
+          },
+          {
+            lable: 'Second dictionary',
+            authorId: '0',
+            language: 'English',
+            words: {
+              nocturnal: 'active mainly during the night',
+              prolific: 'producing a large amount of something',
+              relapse:
+                'the return of an illness after a period of improvement ',
+            },
+          },
+        ];
+        for await (const dictionary of dictionaries) {
+          await dictionaryRepository.createDictionary(dictionary);
+        }
+
+        const caseOne = await dictionaryRepository.readDictionary(0, ['*']);
+
+        assert.ok(Array.isArray(caseOne), 'should be array');
+        assert.strictEqual(caseOne.length, 2);
+        for (let i = 0; i < dictionaries.length; i++) {
+          assert.strictEqual(caseOne[i].lable, dictionaries[i].lable);
+          assert.strictEqual(caseOne[i].language, dictionaries[i].language);
+          assert.strictEqual(caseOne[i].owner_id, dictionaries[i].authorId);
+          assert.deepStrictEqual(caseOne[i].words, dictionaries[i].words);
+        }
+
+        const caseTwo = await dictionaryRepository.readDictionary(0, ['words']);
+        assert.ok(Array.isArray(caseTwo), 'should be array');
+        assert.strictEqual(caseTwo.length, 2);
+        for (let i = 0; i < dictionaries.length; i++) {
+          assert.deepStrictEqual(caseOne[i].words, dictionaries[i].words);
+        }
+      });
+    });
   });
 });

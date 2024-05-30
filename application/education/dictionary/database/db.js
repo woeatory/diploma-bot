@@ -14,11 +14,19 @@ export default class DictionaryRepository {
           language,
           words,
         })
-        .returning('*')
-        .catch((error) => console.error(error));
+        .returning('*');
+      // .catch((error) => console.error(error));
 
-      console.log('created dictionary: ' + createdDictionary)
+      console.log('created dictionary: ' + createdDictionary);
       return createdDictionary;
     });
+  }
+
+  async readDictionary(ownerId, fields = ['*']) {
+    console.log({ readDictionary: [ownerId, ...fields] });
+    const names = fields.join(', ');
+    return await this.knex(dictionariesTable)
+      .select(names)
+      .whereRaw('owner_id = ?', ownerId);
   }
 }
