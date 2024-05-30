@@ -7,15 +7,15 @@ export default class DictionaryService {
     await this.dictionaryRepository.createDictionary(dictionary);
   }
 
-  readDictionary(fields) {
-    this.dictionaryRepository.readDictionary(fields);
+  async readDictionary(fields) {
+    await this.dictionaryRepository.readDictionary(fields);
   }
 
-  updateDictionary(dictionary) {
-    this.dictionaryRepository.updateDictionary(dictionary);
+  async updateDictionary(dictionary) {
+    await this.dictionaryRepository.updateDictionary(dictionary);
   }
 
-  deleteDictionary(dictionary) {
-    this.dictionaryRepository.removeDictionary(dictionary);
+  async deleteDictionary(dictionary) {
+    await this.dictionaryRepository.removeDictionary(dictionary);
   }
 }

@@ -16,7 +16,6 @@ export default class DictionaryRepository {
         })
         .returning('*');
 
-      console.log('created dictionary: ' + createdDictionary);
       return createdDictionary;
     });
   }
@@ -30,12 +29,14 @@ export default class DictionaryRepository {
   }
 
   async updateDictionary(dictionaryId, fields) {
+    console.log({ updateDictionary: { dictionaryId, fields } });
     return await this.knex(dictionariesTable)
       .where({ dictionary_id: dictionaryId })
       .update(fields, ['*']);
   }
 
   async deleteDictionary(dictionaryId) {
+    console.log({ deleteDictionary: dictionaryId });
     return await this.knex(dictionariesTable)
       .where({ dictionary_id: dictionaryId })
       .del();
