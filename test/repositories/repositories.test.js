@@ -193,5 +193,63 @@ describe('Repositories', { concurrency: false }, () => {
         }
       });
     });
+
+    describe('updateDictionary', () => {
+      it('should update given fields', async () => {
+        const dictionary = {
+          lable: 'Test dictionary',
+          authorId: '0',
+          language: 'English',
+          words: {
+            nocturnal: 'active mainly during the night',
+            prolific: 'producing a large amount of something',
+            relapse: 'the return of an illness after a period of improvement ',
+          },
+        };
+
+        const updatedFields = {
+          language: 'Spanish',
+          words: {
+            quincena: 'two weeks',
+            recaída: 'the return of an illness after a period of improvement ',
+          },
+        };
+        const inserted = await dictionaryRepository.createDictionary(
+          dictionary,
+        );
+
+        const [result] = await dictionaryRepository.updateDictionary(
+          inserted.dictionary_id,
+          updatedFields,
+        );
+        assert.strictEqual(result.language, updatedFields.language);
+        assert.deepStrictEqual(result.words, updatedFields.words);
+      });
+    });
+
+    describe('deleteDictionary', () => {
+      it('should delete dictionary by given id', async () => {
+        const dictionary = {
+          lable: 'Test dictionary',
+          authorId: '0',
+          language: 'English',
+          words: {},
+        };
+
+        const inserted = await dictionaryRepository.createDictionary(
+          dictionary,
+        );
+
+        assert.strictEqual(
+          await dictionaryRepository.deleteDictionary(inserted.dictionary_id),
+          1,
+        );
+
+        assert.strictEqual(
+          await dictionaryRepository.deleteDictionary(inserted.dictionary_id),
+          0,
+        );
+      });
+    });
   });
 });

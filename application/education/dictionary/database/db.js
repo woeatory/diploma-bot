@@ -15,7 +15,6 @@ export default class DictionaryRepository {
           words,
         })
         .returning('*');
-      // .catch((error) => console.error(error));
 
       console.log('created dictionary: ' + createdDictionary);
       return createdDictionary;
@@ -28,5 +27,17 @@ export default class DictionaryRepository {
     return await this.knex(dictionariesTable)
       .select(names)
       .whereRaw('owner_id = ?', ownerId);
+  }
+
+  async updateDictionary(dictionaryId, fields) {
+    return await this.knex(dictionariesTable)
+      .where({ dictionary_id: dictionaryId })
+      .update(fields, ['*']);
+  }
+
+  async deleteDictionary(dictionaryId) {
+    return await this.knex(dictionariesTable)
+      .where({ dictionary_id: dictionaryId })
+      .del();
   }
 }
