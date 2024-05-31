@@ -11,4 +11,3 @@ export const getDbPassword = async (path) => {
   });
   return password.trim();
 };
-

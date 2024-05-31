@@ -3,6 +3,6 @@
  * @returns { Promise<void> }
  */
 export async function seed(knex) {
+  await knex('Dictionaries').del().truncate();
   await knex('Users').del();
-  await knex('Users').insert([{ user_id: 6965493277 }]);
-};
+}

@@ -214,9 +214,8 @@ describe('Repositories', { concurrency: false }, () => {
             recaída: 'the return of an illness after a period of improvement ',
           },
         };
-        const inserted = await dictionaryRepository.createDictionary(
-          dictionary,
-        );
+        const inserted =
+          await dictionaryRepository.createDictionary(dictionary);
 
         const [result] = await dictionaryRepository.updateDictionary(
           inserted.dictionary_id,
@@ -236,9 +235,8 @@ describe('Repositories', { concurrency: false }, () => {
           words: {},
         };
 
-        const inserted = await dictionaryRepository.createDictionary(
-          dictionary,
-        );
+        const inserted =
+          await dictionaryRepository.createDictionary(dictionary);
 
         assert.strictEqual(
           await dictionaryRepository.deleteDictionary(inserted.dictionary_id),

@@ -9,7 +9,7 @@ export default {
     host: env['POSTGRES_HOST'],
     port: env['POSTGRES_PORT'],
     user: env['POSTGRES_USER'],
-    database: env['POSTGRES_NAME'],
+    database: env['POSTGRES_DB'],
     password: env['POSTGRES_PASSWORD'],
     ssl: env['POSTGRES_SSL'] ? { rejectUnauthorized: false } : false,
   },
