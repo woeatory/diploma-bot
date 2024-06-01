@@ -2,6 +2,7 @@ import { describe, it, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import DictionaryRepository from '../../application/education/dictionary/database/db.js';
 import UserRepository from '../../application/education/user/database/db.js';
+import LadderRepository from '../../application/bot/crocodile/db.js';
 
 import db from '../setup.js';
 
@@ -247,6 +248,88 @@ describe('Repositories', { concurrency: false }, () => {
           await dictionaryRepository.deleteDictionary(inserted.dictionary_id),
           0,
         );
+      });
+    });
+  });
+  describe('LadderRepository', () => {
+    const ladderRepository = new LadderRepository(knexDb);
+    before(async () => {
+      await knexDb('Users').insert({ user_id: 0 });
+      await knexDb('Users').insert({ user_id: 1 });
+    });
+
+    after(async () => {
+      await knexDb('Ladder').del().truncate();
+      await knexDb('Users').del();
+    });
+
+    beforeEach(async () => {
+      await knexDb('Ladder').del();
+    });
+
+    describe('createRating', () => {
+      it('should inser new user and his score', async () => {
+        const userId = '0';
+        const chatId = '0';
+        const score = 1;
+
+        const [actual] = await ladderRepository.createRating({
+          userId,
+          chatId,
+          score,
+        });
+
+        assert.strictEqual(actual.user_id, userId);
+        assert.strictEqual(actual.chat_id, chatId);
+        assert.strictEqual(actual.score, score);
+      });
+    });
+
+    describe('updateRating', () => {
+      it("should update user's score in chat", async () => {
+        const userId = '0';
+        const chatId = '0';
+        const score = 1;
+        await ladderRepository.createRating({ userId, chatId });
+
+        const [actual] = await ladderRepository.updateRating({
+          userId,
+          chatId,
+          score,
+        });
+        assert.strictEqual(actual.user_id, userId);
+        assert.strictEqual(actual.chat_id, chatId);
+        assert.strictEqual(actual.score, score);
+      });
+    });
+
+    describe('readRating', () => {
+      it('should read given fields', async () => {
+        const ladder = [
+          {
+            userId: '0',
+            chatId: '10',
+          },
+          {
+            userId: '1',
+            chatId: '10',
+            score: 1,
+          },
+        ];
+
+        for await (const l of ladder) {
+          await ladderRepository.createRating(l);
+        }
+
+        const actual = await ladderRepository.readRating(10);
+
+        assert.strictEqual(actual[0].user_id, ladder[1].userId);
+        assert.strictEqual(actual[0].chat_id, ladder[1].chatId);
+        assert.strictEqual(actual[0].score, ladder[1].score);
+        assert.strictEqual(actual[1].user_id, ladder[0].userId);
+        assert.strictEqual(actual[1].chat_id, ladder[0].chatId);
+        assert.strictEqual(actual[1].score, 0);
+
       });
     });
   });
