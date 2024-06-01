@@ -8,9 +8,7 @@
     "metarhia",
     "plugin:@stylistic/disable-legacy"
   ],
-  "plugins": [
-    "@stylistic/js"
-  ],
+  "plugins": ["@stylistic/js"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"

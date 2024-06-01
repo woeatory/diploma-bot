@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node --env-file=.env application/main.js",
     "start:dev": "node --env-file=.env --watch application/main.js",
-    "test": "node --env-file=.env --test \"**/*.test.js\" \"**/*.spec.js\"",
+    "test": "node --env-file=.env --test",
     "migrate:latest": "npx knex migrate:latest --knexfile database/knexfile.js",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" \"**/*.ts\""
   },

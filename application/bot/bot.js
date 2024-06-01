@@ -1,9 +1,10 @@
-import { Bot } from 'grammy';
+import { Bot, Composer } from 'grammy';
 import { user } from './user/user.js';
+import { crocodile } from './crocodile/game.js';
 
 const startPolling = (bot) => {
   bot.start({
-    allowed_updates: ['message'],
+    allowed_updates: ['message', 'chat_member'],
     onStart: (botInfo) => console.log(botInfo),
   });
 };
@@ -14,9 +15,9 @@ const startWebhook = () => {
 
 export const initBot = (botConfig, services) => {
   const bot = new Bot(botConfig.token);
-
-  bot.on('message');
-  bot.use(user(services.userService));
+  const main = new Composer();
+  main.use(crocodile);
+  main.use(user(services.userService));
 
   botConfig.mode === 'WEBHOOK' ? startWebhook() : startPolling(bot);
 
