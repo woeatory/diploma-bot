@@ -22,9 +22,8 @@ export default class DictionaryRepository {
 
   async readDictionary(ownerId, fields = ['*']) {
     console.log({ readDictionary: [ownerId, ...fields] });
-    const names = fields.join(', ');
     return await this.knex(dictionariesTable)
-      .select(names)
+      .select(fields)
       .whereRaw('owner_id = ?', ownerId);
   }
 

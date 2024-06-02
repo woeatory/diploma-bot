@@ -186,7 +186,7 @@ describe('Repositories', { concurrency: false }, () => {
           assert.deepStrictEqual(caseOne[i].words, dictionaries[i].words);
         }
 
-        const caseTwo = await dictionaryRepository.readDictionary(0, ['words']);
+        const caseTwo = await dictionaryRepository.readDictionary(0, ['words', 'language']);
         assert.ok(Array.isArray(caseTwo), 'should be array');
         assert.strictEqual(caseTwo.length, 2);
         for (let i = 0; i < dictionaries.length; i++) {
