@@ -5,10 +5,10 @@ export default class UserService {
     this.userRepository = userRepository;
   }
 
-  async createUser(userId) {
+  async createUser(userId, username) {
     if (UsersCache.has(userId)) return userId;
-    await this.userRepository.createUser(userId);
-    UsersCache.add(userId);
+    await this.userRepository.createUser(userId, username);
+    UsersCache.add(userId, username);
     return userId;
   }
 

@@ -1,12 +1,12 @@
 export class UsersCache {
-  static storage = new Set();
+  static storage = new Map();
 
   static has(userId) {
     return this.storage.has(userId);
   }
 
-  static add(userId) {
-    return this.storage.add(userId);
+  static add(userId, username) {
+    return this.storage.set(userId, username)
   }
 
   static delete(userId) {

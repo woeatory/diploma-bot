@@ -3,10 +3,10 @@ export default class UserRepository {
     this.knex = knex;
   }
 
-  async createUser(userId) {
+  async createUser(userId, username = null) {
     console.log({ createUser: userId });
     return await this.knex('Users')
-      .insert({ user_id: userId })
+      .insert({ user_id: userId, username })
       .returning('*')
       .onConflict()
       .ignore();

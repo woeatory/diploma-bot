@@ -2,7 +2,7 @@ import { describe, it, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import DictionaryRepository from '../../application/education/dictionary/database/db.js';
 import UserRepository from '../../application/bot/user/database/db.js';
-import LadderRepository from '../../application/education/crocodile-game/database/db.js';
+import LadderRepository from '../../application/bot/crocodile-game/database/db.js';
 
 import db from '../setup.js';
 
@@ -61,7 +61,7 @@ describe('Repositories', { concurrency: false }, () => {
         const [caseOne] = await userRepository.readUser(userId);
         assert.strictEqual(
           Object.keys(caseOne).length,
-          2,
+          3,
           'should return [user_id, created_at]',
         );
         assert.strictEqual(caseOne.user_id, userId);
