@@ -1,8 +1,8 @@
 import { describe, it, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import DictionaryRepository from '../../application/education/dictionary/database/db.js';
-import UserRepository from '../../application/education/user/database/db.js';
-import LadderRepository from '../../application/bot/crocodile/db.js';
+import UserRepository from '../../application/bot/user/database/db.js';
+import LadderRepository from '../../application/education/crocodile-game/database/db.js';
 
 import db from '../setup.js';
 
@@ -253,24 +253,33 @@ describe('Repositories', { concurrency: false }, () => {
   });
   describe('LadderRepository', () => {
     const ladderRepository = new LadderRepository(knexDb);
+    const chatId = '10';
+
     before(async () => {
+      await knexDb('Ladder').del();
+      await knexDb('Chats').del();
+      await knexDb('Users').del();
+
       await knexDb('Users').insert({ user_id: 0 });
       await knexDb('Users').insert({ user_id: 1 });
     });
 
     after(async () => {
-      await knexDb('Ladder').del().truncate();
+      await knexDb('Ladder').del();
+      await knexDb('Chats').del();
       await knexDb('Users').del();
     });
 
     beforeEach(async () => {
       await knexDb('Ladder').del();
+      await knexDb('Chats').del();
+
+      await knexDb('Chats').insert({ chat_id: 10 });
     });
 
     describe('createRating', () => {
       it('should inser new user and his score', async () => {
         const userId = '0';
-        const chatId = '0';
         const score = 1;
 
         const [actual] = await ladderRepository.createRating({
@@ -288,7 +297,6 @@ describe('Repositories', { concurrency: false }, () => {
     describe('updateRating', () => {
       it("should update user's score in chat", async () => {
         const userId = '0';
-        const chatId = '0';
         const score = 1;
         await ladderRepository.createRating({ userId, chatId });
 
@@ -329,7 +337,6 @@ describe('Repositories', { concurrency: false }, () => {
         assert.strictEqual(actual[1].user_id, ladder[0].userId);
         assert.strictEqual(actual[1].chat_id, ladder[0].chatId);
         assert.strictEqual(actual[1].score, 0);
-
       });
     });
   });

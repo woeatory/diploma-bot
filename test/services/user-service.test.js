@@ -1,6 +1,6 @@
 import { describe, it, mock, beforeEach } from 'node:test';
 import assert from 'node:assert';
-import UserService from '../../application/education/user/domain/service/user-service.js';
+import UserService from '../../application/bot/user/domain/service/user-service.js';
 import { UsersCache } from '../../application/utils/cache.js';
 
 describe('UserService', () => {
