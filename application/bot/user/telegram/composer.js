@@ -3,9 +3,8 @@ import { Composer } from 'grammy';
 const user = (userService) => {
   const userComposer = new Composer();
 
-  userComposer.command('start', async (ctx, next) => {
+  userComposer.command('start', async (ctx) => {
     await userService.createUser(ctx.from?.id, ctx.from?.username);
-    await next();
   });
 
   userComposer.on('message', async (ctx, next) => {

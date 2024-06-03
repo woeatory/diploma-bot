@@ -4,7 +4,7 @@ import { GameEngine } from './game-engine.js';
 const crocodile = (ladderService) => {
   const composer = new Composer();
 
-  composer.command('crocodile_rating', async (ctx, next) => {
+  composer.chatType('group').command('crocodile_rating', async (ctx) => {
     const res = await ladderService.getChatRating(ctx.chat.id);
     if (res.length === 0) await ctx.reply('Nobody has played yet');
     let text = '';
@@ -12,10 +12,9 @@ const crocodile = (ladderService) => {
       text += `${index + 1}. ${record.username}: ${record.score}\n`;
     });
     ctx.reply(text);
-    await next();
   });
 
-  composer.command('crocodile_start', async (ctx, next) => {
+  composer.chatType('group').command('crocodile_start', async (ctx) => {
     try {
       const userId = ctx.from.id;
       const chatId = ctx.chat.id;
@@ -33,7 +32,6 @@ const crocodile = (ladderService) => {
         ctx.reply(`@${ctx.from.username}, try to start me in direct messages`);
       }
     }
-    await next();
   });
 
   composer.chatType('private').on('message:text', async (ctx, next) => {
@@ -46,7 +44,7 @@ const crocodile = (ladderService) => {
       await ctx.reply('Game has been started');
       await ctx.api.sendMessage(chatId, 'Game has been started');
     }
-    await next();
+    next();
   });
 
   composer.chatType('group').on('message:text', async (ctx, next) => {
@@ -65,7 +63,6 @@ const crocodile = (ladderService) => {
         `Congratulations! The word was "${gameState.word}". The game is now over.`,
       );
       await ladderService.addUsersScore({ userId, chatId });
-      await next();
     }
   });
   return composer;

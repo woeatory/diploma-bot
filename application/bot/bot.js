@@ -26,9 +26,9 @@ export const initBot = async (botConfig, services) => {
     { command: 'crocodile_rating', description: 'Show crocodile rating' },
   ]);
 
+  bot.use(user(services.userService));
   bot.use(chats(services.chatService));
   bot.use(crocodile(services.ladderService));
-  bot.use(user(services.userService));
 
   botConfig.mode === 'WEBHOOK' ? startWebhook() : startPolling(bot);
 };
