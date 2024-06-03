@@ -14,6 +14,10 @@ const crocodile = (ladderService) => {
     ctx.reply(text);
   });
 
+  composer.command('crocodile_start', async (ctx) => {
+    await ctx.api.sendMessage(ctx.from.id, 'Test');
+  });
+
   return composer;
 };
 
