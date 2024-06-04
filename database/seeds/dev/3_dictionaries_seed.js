@@ -5,7 +5,7 @@
 export async function seed(knex) {
   await knex('Dictionaries').insert([
     {
-      lable: 'my dictionary',
+      title: 'my dictionary',
       language: 'English',
       owner_id: '6965493277',
       words: {

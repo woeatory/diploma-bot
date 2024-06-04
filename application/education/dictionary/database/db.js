@@ -4,12 +4,12 @@ export default class DictionaryRepository {
   constructor(knex) {
     this.knex = knex;
   }
-  async createDictionary({ lable, authorId, language, words }) {
-    console.log({ createDictionary: { lable, authorId, language, words } });
+  async createDictionary({ title, authorId, language, words }) {
+    console.log({ createDictionary: { title, authorId, language, words } });
     return await this.knex.transaction(async (trx) => {
       const [createdDictionary] = await trx(dictionariesTable)
         .insert({
-          lable,
+          title,
           owner_id: authorId,
           language,
           words,
