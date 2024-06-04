@@ -14,13 +14,13 @@ describe('UserService', () => {
       const userId = 0;
       const createdAt = new Date();
       class UserRepositoryMock {
-        createUser(userId) {
-          return [
+        async createUser(userId) {
+          return Promise.resolve([
             {
               user_id: userId,
               created_at: createdAt,
             },
-          ];
+          ]);
         }
       }
 
