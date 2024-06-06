@@ -2,7 +2,6 @@ import { Composer } from 'grammy';
 
 const viewDictionary = (dictionaryService) => {
   async function viewDictionaryHandler(ctx, dictionaryId, page) {
-
     const [dictionary] = await dictionaryService.getDictionary(dictionaryId);
 
     const wordsPerPage = 10;
@@ -22,20 +21,26 @@ const viewDictionary = (dictionaryService) => {
         message += `${word}: ${definition}\n`;
       });
 
-      const inlineKeyboard = [];
+      const navigationKeyboard = [];
       if (page > 0) {
-        inlineKeyboard.push({
+        navigationKeyboard.push({
           text: 'Previous',
           callback_data: `prev_${dictionaryId}_${page - 1}`,
         });
       }
       if (page < totalPages - 1) {
-        inlineKeyboard.push({
+        navigationKeyboard.push({
           text: 'Next',
           callback_data: `next_${dictionaryId}_${page + 1}`,
         });
       }
-      return { message, inlineKeyboard: [inlineKeyboard] };
+      const editKeyboard = [];
+      editKeyboard.push({
+        text: 'Edit',
+        callback_data: `edit_${dictionaryId}`,
+      });
+
+      return { message, inlineKeyboard: [navigationKeyboard, editKeyboard] };
     };
 
     const { message, inlineKeyboard } = renderPage(page);
@@ -65,19 +70,25 @@ const viewDictionary = (dictionaryService) => {
   composer.callbackQuery(/^view_(\d+)$/, async (ctx) => {
     const dictionaryId = ctx.match[1];
     const page = 0;
-    await ctx.answerCallbackQuery(viewDictionaryHandler(ctx, dictionaryId, page));
+    await ctx.answerCallbackQuery(
+      viewDictionaryHandler(ctx, dictionaryId, page),
+    );
   });
 
   composer.callbackQuery(/^prev_(\d+)_(\d+)$/, async (ctx) => {
     const dictionaryId = ctx.match[1];
     const page = parseInt(ctx.match[2], 10);
-    await ctx.answerCallbackQuery(viewDictionaryHandler(ctx, dictionaryId, page));
+    await ctx.answerCallbackQuery(
+      viewDictionaryHandler(ctx, dictionaryId, page),
+    );
   });
 
   composer.callbackQuery(/^next_(\d+)_(\d+)$/, async (ctx) => {
     const dictionaryId = ctx.match[1];
     const page = parseInt(ctx.match[2], 10);
-    await ctx.answerCallbackQuery(viewDictionaryHandler(ctx, dictionaryId, page));
+    await ctx.answerCallbackQuery(
+      viewDictionaryHandler(ctx, dictionaryId, page),
+    );
   });
 
   return composer;

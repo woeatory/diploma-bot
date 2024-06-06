@@ -48,5 +48,8 @@ export const initBot = async (botConfig, services) => {
   bot.use(viewDictionary(services.dictionaryService));
   bot.use(editDictionaryConversation(services.dictionaryService));
   bot.use(crocodile(services.ladderService));
+  bot.catch((error) => {
+    console.error(error);
+  });
   botConfig.mode === 'WEBHOOK' ? startWebhook() : startPolling(bot);
 };

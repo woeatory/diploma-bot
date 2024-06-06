@@ -11,7 +11,10 @@ const getUsersAllDictionaries = (dictionaryService) => {
       return;
     }
     const inlineKeyboard = res.map((dict) => [
-      { text: dict.title, callback_data: `view_${dict.dictionary_id}` },
+      {
+        text: `${dict.title}(${dict.language})`,
+        callback_data: `view_${dict.dictionary_id}`,
+      },
     ]);
     await ctx.reply('Your dictionaries:', {
       reply_markup: { inline_keyboard: inlineKeyboard },

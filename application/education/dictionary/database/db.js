@@ -27,10 +27,10 @@ export default class DictionaryRepository {
       .whereRaw('owner_id = ?', ownerId);
   }
 
-  async readDictionaryById(dictionaryId) {
+  async readDictionaryById(dictionaryId, fields = ['*']) {
     console.log({ readDictionaryById: dictionaryId });
     return await this.knex(dictionariesTable)
-      .select('*')
+      .select(fields)
       .where({ dictionary_id: dictionaryId });
   }
 

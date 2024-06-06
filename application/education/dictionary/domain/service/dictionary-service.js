@@ -12,7 +12,12 @@ export default class DictionaryService {
   }
 
   async getDictionary(dictionaryId) {
-    return await this.dictionaryRepository.readDictionaryById(dictionaryId);
+    return await this.dictionaryRepository.readDictionaryById(dictionaryId, [
+      'dictionary_id',
+      'title',
+      'language',
+      'words',
+    ]);
   }
 
   async getUserDictionaries(userId) {
@@ -24,7 +29,10 @@ export default class DictionaryService {
   }
 
   async updateDictionary(dictionary) {
-    await this.dictionaryRepository.updateDictionary(dictionary);
+    await this.dictionaryRepository.updateDictionary(
+      dictionary.dictionary_id,
+      dictionary,
+    );
   }
 
   async deleteDictionary(dictionary) {
