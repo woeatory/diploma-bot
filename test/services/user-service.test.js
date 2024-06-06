@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { describe, it, mock, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import UserService from '../../application/bot/user/domain/service/user-service.js';

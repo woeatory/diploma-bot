@@ -4,13 +4,13 @@ export default class DictionaryRepository {
   constructor(knex) {
     this.knex = knex;
   }
-  async createDictionary({ title, authorId, language, words }) {
-    console.log({ createDictionary: { title, authorId, language, words } });
+  async createDictionary({ title, owner_id, language, words }) {
+    console.log({ createDictionary: { title, owner_id, language, words } });
     return await this.knex.transaction(async (trx) => {
       const [createdDictionary] = await trx(dictionariesTable)
         .insert({
           title,
-          owner_id: authorId,
+          owner_id,
           language,
           words,
         })
@@ -25,6 +25,13 @@ export default class DictionaryRepository {
     return await this.knex(dictionariesTable)
       .select(fields)
       .whereRaw('owner_id = ?', ownerId);
+  }
+
+  async readDictionaryById(dictionaryId) {
+    console.log({ readDictionaryById: dictionaryId });
+    return await this.knex(dictionariesTable)
+      .select('*')
+      .where({ dictionary_id: dictionaryId });
   }
 
   async updateDictionary(dictionaryId, fields) {

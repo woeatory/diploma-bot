@@ -4,11 +4,23 @@ export default class DictionaryService {
   }
 
   async createDictionary(dictionary) {
-    await this.dictionaryRepository.createDictionary(dictionary);
+    return await this.dictionaryRepository.createDictionary(dictionary);
   }
 
   async readDictionary(fields) {
     await this.dictionaryRepository.readDictionary(fields);
+  }
+
+  async getDictionary(dictionaryId) {
+    return await this.dictionaryRepository.readDictionaryById(dictionaryId);
+  }
+
+  async getUserDictionaries(userId) {
+    return await this.dictionaryRepository.readDictionary(userId, [
+      'dictionary_id',
+      'title',
+      'language',
+    ]);
   }
 
   async updateDictionary(dictionary) {

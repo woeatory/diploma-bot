@@ -8,9 +8,7 @@ const user = (userService) => {
   });
 
   userComposer.on('message', async (ctx, next) => {
-    if (ctx.chat.type !== 'private') {
-      await userService.createUser(ctx.from?.id, ctx.from?.username);
-    }
+    await userService.createUser(ctx.from?.id, ctx.from?.username);
     await next();
   });
   return userComposer;
