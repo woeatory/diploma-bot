@@ -42,4 +42,46 @@ export default class LectureRepository {
       throw error;
     }
   }
+
+  async readAllLectures(fields = ['*']) {
+    return await this.knex('Lectures').select(fields);
+  }
+
+  async readLectureById(lectureId) {
+    try {
+      const lecture = await this.knex('Lectures')
+        .select('id', 'title', 'description', 'author_id')
+        .where({ id: lectureId })
+        .first();
+
+      if (!lecture) {
+        throw new Error(`Lecture with ID ${lectureId} not found`);
+      }
+
+      const tasks = await this.knex('Tasks')
+        .select('id', 'assignment', 'order')
+        .where({ lecture_id: lectureId })
+        .orderBy('order', 'asc');
+
+      const taskIds = tasks.map((task) => task.id);
+      const options = await this.knex('Options')
+        .select('id', 'task_id', 'option_text', 'is_correct')
+        .whereIn('task_id', taskIds);
+
+      const tasksWithOptions = tasks.map((task) => ({
+        ...task,
+        options: options.filter((option) => option.task_id === task.id),
+      }));
+
+      return {
+        id: lecture.id,
+        title: lecture.title,
+        description: lecture.description,
+        tasks: tasksWithOptions,
+      };
+    } catch (error) {
+      console.error('Error reading lecture:', error);
+      throw error;
+    }
+  }
 }

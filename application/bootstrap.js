@@ -7,6 +7,8 @@ import UserRepository from './bot/user/database/db.js';
 import UserService from './bot/user/domain/service/user-service.js';
 import ChatService from './bot/chat/domain/chat-service.js';
 import ChatsRepository from './bot/chat/database/db.js';
+import LectureService from './education/lecture/domain/lecture-service.js';
+import LectureRepository from './education/lecture/database/db.js';
 
 export default function bootstrap(config) {
   const knex = start(config.postgresConfig);
@@ -16,11 +18,12 @@ export default function bootstrap(config) {
   const dictionaryService = new DictionaryService(
     new DictionaryRepository(knex),
   );
-
+  const lectureService = new LectureService(new LectureRepository(knex));
   return {
     userService,
     dictionaryService,
     ladderService,
     chatService,
+    lectureService,
   };
 }
