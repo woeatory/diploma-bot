@@ -44,10 +44,12 @@ export default class LectureRepository {
   }
 
   async readAllLectures(fields = ['*']) {
+    console.log({ readAllLectures: fields });
     return await this.knex('Lectures').select(fields);
   }
 
   async readLectureById(lectureId) {
+    console.log({ readLectureById: lectureId });
     try {
       const lecture = await this.knex('Lectures')
         .select('id', 'title', 'description', 'author_id')

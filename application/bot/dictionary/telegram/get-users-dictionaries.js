@@ -5,7 +5,6 @@ const getUsersAllDictionaries = (dictionaryService) => {
 
   composer.command('get_my_dictionaries', async (ctx) => {
     const res = await dictionaryService.getUserDictionaries(ctx.msg.from.id);
-    console.log(res);
     if (res.length === 0) {
       await ctx.reply('You have no dictionaries');
       return;
