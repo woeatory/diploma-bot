@@ -12,10 +12,10 @@ export default class LectureRepository {
           .insert({
             title: lecture.title,
             description: lecture.description,
+            author_id: lecture.authorId,
           })
           .returning('id');
         const taskPromises = lecture.tasks.map(async (task, index) => {
-          // Insert each task and get the task id
           const [taskId] = await trx('Tasks')
             .insert({
               lecture_id: lectureId.id,
