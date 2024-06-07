@@ -8,7 +8,6 @@ export async function up(knex) {
       table.increments('id').primary();
       table.string('title').notNullable();
       table.text('description').notNullable();
-      table.integer('order').unsigned().notNullable();
       table.timestamps(true, true);
     })
     .createTable('Tasks', (table) => {
