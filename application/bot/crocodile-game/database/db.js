@@ -17,6 +17,7 @@ export default class LadderRepository {
       .join('Users', `${this.tableName}.user_id`, '=', 'Users.user_id')
       .select(
         `${this.tableName}.user_id`,
+        `${this.tableName}.chat_id`,
         'Users.username',
         `${this.tableName}.score`,
       )

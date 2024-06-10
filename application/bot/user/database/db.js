@@ -9,7 +9,7 @@ export default class UserRepository {
       .insert({ user_id: userId, username })
       .returning('*')
       .onConflict('user_id')
-      .merge();
+      .ignore();
   }
 
   async readUser(userId, fields = ['*']) {

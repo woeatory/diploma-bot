@@ -103,8 +103,8 @@ describe('Repositories', { concurrency: false }, () => {
     describe('createDictionary', () => {
       it('should insert new dictionary into DB', async () => {
         const dictionary = {
-          lable: 'Test dictionary',
-          authorId: '0',
+          title: 'Test dictionary',
+          owner_id: '0',
           language: 'English',
           words: {
             nocturnal: 'active mainly during the night',
@@ -121,16 +121,16 @@ describe('Repositories', { concurrency: false }, () => {
           Math.abs(expectedTime.getTime() - actualTime.getTime()) < 5000,
           `created_at is not within the expected range: ${actualTime}`,
         );
-        assert.strictEqual(actual.lable, dictionary.lable);
+        assert.strictEqual(actual.title, dictionary.title);
         assert.strictEqual(actual.language, dictionary.language);
-        assert.strictEqual(actual.owner_id, dictionary.authorId);
+        assert.strictEqual(actual.owner_id, dictionary.owner_id);
         assert.deepStrictEqual(actual.words, dictionary.words);
       });
 
       it("should throw exeption if user doesn't exist", async () => {
         const dictionary = {
-          lable: 'Test dictionary',
-          authorId: '1',
+          title: 'Test dictionary',
+          owner_id: '1',
           language: 'English',
           words: {
             nocturnal: 'active mainly during the night',
@@ -139,7 +139,7 @@ describe('Repositories', { concurrency: false }, () => {
           },
         };
 
-        assert.rejects(async () => {
+        await assert.rejects(async () => {
           await dictionaryRepository.createDictionary(dictionary);
         });
       });
@@ -149,8 +149,8 @@ describe('Repositories', { concurrency: false }, () => {
       it('should return dictionary with given fields', async () => {
         const dictionaries = [
           {
-            lable: 'First dictionary',
-            authorId: '0',
+            title: 'First dictionary',
+            owner_id: '0',
             language: 'English',
             words: {
               nocturnal: 'active mainly during the night',
@@ -160,8 +160,8 @@ describe('Repositories', { concurrency: false }, () => {
             },
           },
           {
-            lable: 'Second dictionary',
-            authorId: '0',
+            title: 'Second dictionary',
+            owner_id: '0',
             language: 'English',
             words: {
               nocturnal: 'active mainly during the night',
@@ -180,9 +180,9 @@ describe('Repositories', { concurrency: false }, () => {
         assert.ok(Array.isArray(caseOne), 'should be array');
         assert.strictEqual(caseOne.length, 2);
         for (let i = 0; i < dictionaries.length; i++) {
-          assert.strictEqual(caseOne[i].lable, dictionaries[i].lable);
+          assert.strictEqual(caseOne[i].title, dictionaries[i].title);
           assert.strictEqual(caseOne[i].language, dictionaries[i].language);
-          assert.strictEqual(caseOne[i].owner_id, dictionaries[i].authorId);
+          assert.strictEqual(caseOne[i].owner_id, dictionaries[i].owner_id);
           assert.deepStrictEqual(caseOne[i].words, dictionaries[i].words);
         }
 
@@ -201,8 +201,8 @@ describe('Repositories', { concurrency: false }, () => {
     describe('updateDictionary', () => {
       it('should update given fields', async () => {
         const dictionary = {
-          lable: 'Test dictionary',
-          authorId: '0',
+          title: 'Test dictionary',
+          owner_id: '0',
           language: 'English',
           words: {
             nocturnal: 'active mainly during the night',
@@ -233,8 +233,8 @@ describe('Repositories', { concurrency: false }, () => {
     describe('deleteDictionary', () => {
       it('should delete dictionary by given id', async () => {
         const dictionary = {
-          lable: 'Test dictionary',
-          authorId: '0',
+          title: 'Test dictionary',
+          owner_id: '0',
           language: 'English',
           words: {},
         };

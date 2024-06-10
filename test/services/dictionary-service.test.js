@@ -88,7 +88,7 @@ describe('DictionaryService', () => {
       t.mock.method(dictionaryRepositoryMock, 'readDictionary');
       const dictionaryService = new DictionaryService(dictionaryRepositoryMock);
 
-      const actual = await dictionaryService.getUsersDictionaries(0);
+      const actual = await dictionaryService.getUserDictionaries(0);
       assert.strictEqual(
         dictionaryRepositoryMock.readDictionary.mock.calls.length,
         1,
