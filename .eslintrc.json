@@ -1,0 +1,19 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "metarhia",
+    "plugin:@stylistic/disable-legacy"
+  ],
+  "plugins": ["@stylistic/js"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "camelcase": "off"
+  }
+}
